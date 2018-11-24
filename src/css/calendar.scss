@@ -5,7 +5,7 @@ $borderThickness:1px;
 
 $weekendColor:#ebebeb;
 
-$hoverBackgroundColor:#305dd4;
+$hoverBackgroundColor:#6a6b6d;
 $hoverTextColor:#cfdef4;
 
 * {
@@ -13,16 +13,25 @@ $hoverTextColor:#cfdef4;
   font-family: 'Roboto', sans-serif;
 }
 
-html,body {
-  font-family:helvetica neue,helvetica,arial,sans-serif;
+html, body {
   font-weight:200;
   height:100%;
   min-height:100%;
 }
 
-body {
-  background-image: url('https://images2.alphacoders.com/595/595450.jpg');
-  background-size: 100% 100%;
+body:before {
+  content: "";
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  
+  display: block;
+  background-image: url('https://images.unsplash.com/photo-1516715094483-75da7dee9758?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=d7f624aa2f337d7c936eee2189e6bb95&auto=format&fit=crop&w=1567&q=80');
+  background-position: center;
+  width: 100vw;
+  height: 100vh;
+  filter: blur(2px);
 }
 
 h1 {
@@ -237,12 +246,8 @@ h1 {
         }
       }
       &:hover {
-        background-color:$hoverBackgroundColor;
+        background-color: rgba(0, 0, 0, 0.2);
         cursor:pointer;
-        &.noDate {
-          background:rgba(255,255,255,.95);
-          cursor:default;
-        }
         .date {
           color:$hoverTextColor;
           &.today {

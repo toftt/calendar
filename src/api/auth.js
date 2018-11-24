@@ -20,7 +20,7 @@ const authorize = () => {
 
   // Replace with your app's client ID, redirect URI and desired scopes
   const clientId = 'de8a7d941d164ea4854a21ebaca90c71';
-  const redirectUri = 'https://3e9f9c0c.eu.ngrok.io/';
+  const redirectUri = 'http://fe04ef2a.eu.ngrok.io';
   const scopes = [
     'user-top-read'
   ];

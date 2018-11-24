@@ -3,12 +3,14 @@ import { connect } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import FormControl from '@material-ui/core/FormControl';
 import Card from '@material-ui/core/Card';
+import Input from '@material-ui/core/Input';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 
-import SCard from './Card';
+import TrackCard from './TrackCard';
 import { addTrack } from './redux';
 import { getTracks } from './api/api';
 
@@ -20,13 +22,18 @@ const styles = theme => ({
   content: {
     flex: '1 0 auto',
   },
-  textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-    width: 200,
-  },
   search: {
     width: '100%',
+  },
+  container: {
+    display: 'flex',
+    width: 'inherit',
+  },
+  list: {
+    width: '100%',
+  },
+  input: {
+    fontSize: '1.3rem',
   }
 });
 
@@ -48,13 +55,12 @@ class SearchBox extends React.Component {
 
   onSubmit = (e) => {
     e.preventDefault();
+    const { input } = this.state;  
+    if (!input) this.setState({ input: 'Queen - Bohemian Rhapsody'});
+
     getTracks(this.props.token, this.state.input).then((data) => {
       this.setState({ results: data.tracks.items });
     });
-  }
-
-  addTrack = (track) => {
-    this.props.addTrack(track);
   }
 
   render() {
@@ -62,42 +68,32 @@ class SearchBox extends React.Component {
 
     return (
       <div id="search_box">
-        <List>
+        <List className={classes.list}>
         <ListItem>
-        <form onSubmit={(e) => this.onSubmit(e)}>
-          <TextField
-            id="standard-name"
-            label="Name"
-            className={classes.textField}
-            margin="normal"
-            onChange={(e) => this.onChange(e)}
-            value={this.state.input}
-        />
-        </form>
-        <TextField
-          className={classes.search}
-          id="filled-full-width"
-          label="Label"
-          style={{ margin: 8 }}
-          placeholder="Placeholder"
-          fullWidth
-          margin="normal"
-          variant="filled"
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
+        <form
+          onSubmit={(e) => this.onSubmit(e)}
+          autocomplete="off"
+          className={classes.container}
+        >
+          <FormControl
+            fullWidth
+          >
+            <Input
+              className={classes.input}
+              value={this.state.input}
+              onChange={(e) => this.onChange(e)}
+              placeholder="Search for a track"
+            />
+          </FormControl>
+          </form>
         </ListItem>
-        <ListItem><SCard /></ListItem>
+        <ListItem></ListItem>
         {
           this.state.results.map((track) => (
-            <ListItem>
-              <Card className={classes.card} onClick={() => this.addTrack(track)}>
-                <CardContent className={classes.content}>
-                  <Typography component="h5" variant="h5">{track.name}</Typography>
-                  <Typography variant="subtitle1" color="textSecondary">{track.artists[0].name}</Typography>
-                </CardContent>
-              </Card>
+            <ListItem onClick={() => this.props.addTrack(track)}>
+              <TrackCard
+                track={track}
+              />
             </ListItem>
           ))
         }

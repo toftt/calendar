@@ -13,16 +13,21 @@ import SkipNextIcon from '@material-ui/icons/SkipNext';
 const styles = theme => ({
   card: {
     display: 'flex',
+    flexGrow: 2,
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
   },
   details: {
     display: 'flex',
     flexDirection: 'column',
+    flexGrow: 2,
   },
   content: {
-    flex: '1 0 auto',
+    flex: '2 0 auto',
   },
   cover: {
     width: 151,
+    flexShrink: 0,
   },
   controls: {
     display: 'flex',
@@ -36,18 +41,19 @@ const styles = theme => ({
   },
 });
 
-function MediaControlCard(props) {
-  const { classes, theme } = props;
+function TrackCard(props) {
+  const { classes, theme, track } = props;
+  const { name, artists } = track;
 
   return (
     <Card className={classes.card}>
       <div className={classes.details}>
         <CardContent className={classes.content}>
           <Typography component="h5" variant="h5">
-            Live From Space
+            {name.length <= 23 ? name : name.substr(0, 23) + '...'}
           </Typography>
           <Typography variant="subtitle1" color="textSecondary">
-            Mac Miller
+            {artists[0].name}
           </Typography>
         </CardContent>
         <div className={classes.controls}>
@@ -64,16 +70,16 @@ function MediaControlCard(props) {
       </div>
       <CardMedia
         className={classes.cover}
-        image="https://upload.wikimedia.org/wikipedia/en/thumb/5/5f/Mac_Miller_Live_from_Space.jpg/220px-Mac_Miller_Live_from_Space.jpg"
+        image={track.album.images[0].url}
         title="Live from space album cover"
       />
     </Card>
   );
 }
 
-MediaControlCard.propTypes = {
+TrackCard.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(MediaControlCard);
+export default withStyles(styles, { withTheme: true })(TrackCard);

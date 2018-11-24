@@ -19,6 +19,7 @@ class Root extends Component {
     return (
       <Provider store={store}>
         <div>
+          <div id="bg-image" />
           <Menu />
           <Calendar />
         </div>

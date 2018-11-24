@@ -30,7 +30,7 @@ class Menu extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { drawerIsOpen: false };
+    this.state = { drawerIsOpen: true };
   }
 
   toggleDrawer = (status) => {
