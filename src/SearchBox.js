@@ -8,12 +8,14 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 
+import SCard from './Card';
 import { addTrack } from './redux';
 import { getTracks } from './api/api';
 
 const styles = theme => ({
   card: {
     display: 'flex',
+    width: '100%',
   },
   content: {
     flex: '1 0 auto',
@@ -23,6 +25,9 @@ const styles = theme => ({
     marginRight: theme.spacing.unit,
     width: 200,
   },
+  search: {
+    width: '100%',
+  }
 });
 
 class SearchBox extends React.Component {
@@ -69,7 +74,21 @@ class SearchBox extends React.Component {
             value={this.state.input}
         />
         </form>
+        <TextField
+          className={classes.search}
+          id="filled-full-width"
+          label="Label"
+          style={{ margin: 8 }}
+          placeholder="Placeholder"
+          fullWidth
+          margin="normal"
+          variant="filled"
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
         </ListItem>
+        <ListItem><SCard /></ListItem>
         {
           this.state.results.map((track) => (
             <ListItem>

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
 $borderColor:#c6c6c6;
 $borderThickness:1px;
 
@@ -8,6 +10,7 @@ $hoverTextColor:#cfdef4;
 
 * {
   box-sizing:border-box;
+  font-family: 'Roboto', sans-serif;
 }
 
 html,body {
@@ -18,7 +21,8 @@ html,body {
 }
 
 body {
-  background-color:darken($hoverBackgroundColor,15%);
+  background-image: url('https://images2.alphacoders.com/595/595450.jpg');
+  background-size: 100% 100%;
 }
 
 h1 {
@@ -155,7 +159,6 @@ h1 {
 }
 
 #calendar {
-  width:800px;
   max-width:100%;
   margin:0 auto;
   border-top:$borderThickness solid $borderColor;
@@ -170,12 +173,12 @@ h1 {
     .label {
       width:14.285714286%;
       float:left;
-      text-align:right;
+      text-align: center;
       padding:10px;
       font-size:18px;
       letter-spacing:1px;
       color:darken($borderColor,30%);
-      background:rgba(255,255,255,.95);
+      background:rgba(255,255,255,.5);
     }
   }
   .week {
@@ -189,7 +192,7 @@ h1 {
       height:0px;
       float:left;
       position:relative;
-      background:rgba(255,255,255,.95);
+      background:rgba(255,255,255,.25);
       .date {
         display:block;
         position:absolute;
@@ -231,15 +234,6 @@ h1 {
         background-position:center center;
         &#christmas-day {
           background-image:none;
-        }
-      }
-      &:first-of-type,&:last-of-type {
-        background-color:rgba($weekendColor,.95);
-        &.noDate {
-          &:hover {
-            background-color:rgba($weekendColor,.95);
-            cursor:default;
-          }
         }
       }
       &:hover {

@@ -10,6 +10,9 @@ import MenuIcon from '@material-ui/icons/Menu';
 import SearchDrawer from './SearchDrawer';
 
 const styles = {
+  drawer: {
+    background: 'rgba(255, 255, 255, 0.6)',
+  },
   root: {
     flexGrow: 1,
   },
@@ -19,6 +22,7 @@ const styles = {
   menuButton: {
     marginLeft: -12,
     marginRight: 20,
+    color: 'white',
   },
 };
 
@@ -38,7 +42,7 @@ class Menu extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-        <div>
+        <div className={classes.root}>
           <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
             <MenuIcon onClick={() => this.toggleDrawer(true)} />
           </IconButton>

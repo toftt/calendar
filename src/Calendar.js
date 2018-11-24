@@ -61,7 +61,6 @@ class Calendar extends React.Component {
   render() {
    return (
   <div>
-<h1>Music Christmas Calendar</h1>
 <section id="modal">
   <div class="wrapper">
     <div class="content">
