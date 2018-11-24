@@ -1,0 +1,6 @@
+#search_box {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  width: 40vw;
+}
