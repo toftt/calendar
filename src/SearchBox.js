@@ -8,7 +8,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 
-import authorize from './api/auth';
+import { addTrack } from './redux';
 import { getTracks } from './api/api';
 
 const styles = theme => ({
@@ -44,9 +44,12 @@ class SearchBox extends React.Component {
   onSubmit = (e) => {
     e.preventDefault();
     getTracks(this.props.token, this.state.input).then((data) => {
-      console.log(data.tracks);
       this.setState({ results: data.tracks.items });
     });
+  }
+
+  addTrack = (track) => {
+    this.props.addTrack(track);
   }
 
   render() {
@@ -68,12 +71,12 @@ class SearchBox extends React.Component {
         </form>
         </ListItem>
         {
-          this.state.results.map((song) => (
+          this.state.results.map((track) => (
             <ListItem>
-              <Card className={classes.card}>
+              <Card className={classes.card} onClick={() => this.addTrack(track)}>
                 <CardContent className={classes.content}>
-                  <Typography component="h5" variant="h5">{song.name}</Typography>
-                  <Typography variant="subtitle1" color="textSecondary">{song.artists[0].name}</Typography>
+                  <Typography component="h5" variant="h5">{track.name}</Typography>
+                  <Typography variant="subtitle1" color="textSecondary">{track.artists[0].name}</Typography>
                 </CardContent>
               </Card>
             </ListItem>
@@ -89,4 +92,4 @@ const mapStateToProps = ({ token }) => {
   return { token };
 };
 
-export default connect(mapStateToProps)(withStyles(styles)(SearchBox));
+export default connect(mapStateToProps, { addTrack })(withStyles(styles)(SearchBox));

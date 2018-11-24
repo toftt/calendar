@@ -7,10 +7,12 @@ import Menu from './Menu';
 import Calendar from './Calendar';
 import authorize from './api/auth';
 
-const store = createStore(reducer);
-//const token = authorize();
+import { getTracks } from './api/api';
 
-//store.dispatch(setToken(token));
+const store = createStore(reducer);
+const token = authorize();
+
+store.dispatch(setToken(token));
 
 class Root extends Component {
   render() {

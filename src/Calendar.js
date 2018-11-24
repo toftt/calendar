@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import present from './present.svg';
 
@@ -14,20 +15,48 @@ const DayLabels = () => (
 </div>
 );
 
-const days = () => {
-  const currentYear = (new Date()).getFullYear();
-  const weekDays = [];
+const dayMap = {
+  1: 'one',
+  2: 'two',
+  3: 'three',
+  4: 'four',
+  5: 'five',
+};
 
-  for (let i = 1; i <= 24; i++) {
-    const date = new Date(`${currentYear}-12-${i}`);
-    const weekDay = date.getDay();
-    weekDays.push(weekDay);
-  }
+const weeks = [
+  {
+    id: 'one',
+    days: [null, null, null, null, null, null, 1],
+  },
+  {
+    id: 'two',
+    days: [2, 3, 4, 5, 6, 7, 8],
+  },
+  {
+    id: 'three',
+    days: [9, 10, 11, 12, 13, 14, 15],
+  },
+  {
+    id: 'four',
+    days: [16, 17, 18, 19, 20, 21, 22],
+  },
+  {
+    id: 'five',
+    days: [23, 24, null, null, null, null, null],
+  },
 
-  
-}
+];
+const Day = ({date, imageUrl}) => (
+  <div className="day" style={{backgroundImage: `url(${imageUrl})`}}>
+    <span className="date">
+      {date}
+    </span>
+  </div>
+);
 
-const Calendar = () => (
+class Calendar extends React.Component {
+  render() {
+   return (
   <div>
 <h1>A <em>Coder's</em> Advent Calendar</h1>
 <section id="modal">
@@ -40,88 +69,29 @@ const Calendar = () => (
 </section>
 <section id="calendar" class="collectonme">
   <DayLabels />
-  <div id="one" class="week">
-    <div class="day noDate"></div>
-    <div class="day noDate"></div>
-    <div class="day noDate"></div>
-    <div class="day noDate"></div>
-    <div class="day noDate"></div>
-    <div class="day noDate"></div>
-    <div class="day past">
-      <span class="date">1</span>
+  {
+    weeks.map((week) => (
+    <div id={week.id} className="week">
+      {
+        week.days.map((day) => {
+          if (day === null) return <div className="day noDate"></div>;
+          else return (
+            <Day date={day} imageUrl={this.props.tracks[day]} />
+          )
+        })
+      }
     </div>
-  </div>
-  <div id="two" class="week">
-    <div class="day">
-      <span class="date">6</span>
-    </div>
-    <div class="day">
-      <span class="date">7</span>
-    </div>
-    <div class="day">
-      <span class="date">8</span>
-    </div>
-    <div class="day">
-      <span class="date">9</span>
-    </div>
-    <div class="day">
-      <span class="date">10</span>
-    </div>
-    <div class="day">
-      <span class="date">11</span>
-    </div>
-    <div class="day">
-      <span class="date">12</span>
-    </div>
-  </div>
-  <div id="three" class="week">
-    <div class="day">
-      <span class="date">13</span>
-    </div>
-    <div class="day">
-      <span class="date">14</span>
-    </div>
-    <div class="day">
-      <span class="date">15</span>
-    </div>
-    <div class="day">
-      <span class="date">16</span>
-    </div>
-    <div class="day">
-      <span class="date">17</span>
-    </div>
-    <div class="day">
-      <span class="date">18</span>
-    </div>
-    <div class="day">
-      <span class="date">19</span>
-    </div>
-  </div>
-  <div id="four" class="week">
-    <div class="day">
-      <span class="date">20</span>
-    </div>
-    <div class="day">
-      <span class="date">21</span>
-    </div>
-    <div class="day">
-      <span class="date">22</span>
-    </div>
-    <div class="day">
-      <span class="date">23</span>
-    </div>
-    <div class="day">
-      <span class="date">24</span>
-    </div>
-    <div class="day" id="christmas-day">
-      <span class="date">25</span>
-    </div>
-    <div class="day noDate"></div>
-  </div>
+    ))
+  }
 </section>
-<img src={present} />
 <div id="bottom" class="collectonme"></div>
 </div>
 );
+  }
+}
 
-export default Calendar;
+const mapStateToProps = ({ tracks }) => ({
+  tracks,
+});
+
+export default connect(mapStateToProps)(Calendar);
