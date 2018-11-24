@@ -38,18 +38,10 @@ class Menu extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-        <div className={classes.root}>
-          <AppBar position="static">
-            <Toolbar>
-              <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-                <MenuIcon onClick={() => this.toggleDrawer(true)} />
-              </IconButton>
-              <Typography variant="h6" color="inherit" className={classes.grow}>
-                News
-              </Typography>
-              <Button color="inherit">Login</Button>
-            </Toolbar>
-          </AppBar>
+        <div>
+          <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
+            <MenuIcon onClick={() => this.toggleDrawer(true)} />
+          </IconButton>
           <SearchDrawer
             toggleDrawer={(status) => this.toggleDrawer(status)}
             open={this.state.drawerIsOpen}
