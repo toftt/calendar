@@ -1,6 +1,6 @@
 // Get the hash of the url
 const authorize = () => {
-  console.log('yo');
+  console.log('yo22');
   const hash = window.location.hash
   .substring(1)
   .split('&')
@@ -20,9 +20,9 @@ const authorize = () => {
 
   // Replace with your app's client ID, redirect URI and desired scopes
   const clientId = 'de8a7d941d164ea4854a21ebaca90c71';
-  const redirectUri = 'https://3e9f9c0c.eu.ngrok.io/';
+  const redirectUri = 'http://e420c7f7.eu.ngrok.io';
   const scopes = [
-    'user-top-read'
+    'user-top-read', 'playlist-modify-public', 'playlist-modify-private'
   ];
 
   // If there is no token, redirect to Spotify authorization
