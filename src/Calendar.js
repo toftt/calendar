@@ -47,7 +47,10 @@ const weeks = [
 
 ];
 const Day = ({date, imageUrl}) => (
-  <div className="day" style={{backgroundImage: `url(${imageUrl})`}}>
+  <div className="day" style={{
+    backgroundImage: `url(${imageUrl})`,
+    backgroundSize: '100% 100%',
+    }}>
     <span className="date">
       {date}
     </span>
@@ -58,7 +61,7 @@ class Calendar extends React.Component {
   render() {
    return (
   <div>
-<h1>A <em>Coder's</em> Advent Calendar</h1>
+<h1>Music Christmas Calendar</h1>
 <section id="modal">
   <div class="wrapper">
     <div class="content">
@@ -75,9 +78,14 @@ class Calendar extends React.Component {
       {
         week.days.map((day) => {
           if (day === null) return <div className="day noDate"></div>;
-          else return (
-            <Day date={day} imageUrl={this.props.tracks[day]} />
+          else {
+            const currentTrack = this.props.tracks[day - 1];
+            const imageUrl = currentTrack ? currentTrack.album.images[0].url : '';
+            console.log(imageUrl);
+            return (
+              <Day date={day} imageUrl={imageUrl} />
           )
+          }
         })
       }
     </div>
