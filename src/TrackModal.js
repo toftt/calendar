@@ -2,6 +2,8 @@ import React from 'react';
 import Modal from '@material-ui/core/Modal';
 import { withStyles } from '@material-ui/core/styles';
 
+import TrackCard from './TrackCard';
+
 function getModalStyle() {
   const top = 50;
   const left = 50;
@@ -16,8 +18,8 @@ function getModalStyle() {
 const styles = theme => ({
   paper: {
     position: 'absolute',
-    width: theme.spacing.unit * 50,
-    backgroundColor: theme.palette.background.paper,
+    width: '600px',
+    backgroundColor: 'rgba(255,255,255,.4)',
     boxShadow: theme.shadows[5],
     padding: theme.spacing.unit * 4,
   },
@@ -32,11 +34,11 @@ class TrackModal extends React.Component {
               <Modal
               aria-labelledby="simple-modal-title"
               aria-describedby="simple-modal-description"
-              open={this.props.open}
-              onClose={this.handleClose}
+              open={open}
+              onClose={() => handleClose()}
             >
               <div style={getModalStyle()} className={classes.paper}>
-                <p>fjfj</p>
+                <TrackCard track={this.props.track} />
               </div>
             </Modal>
         </div>

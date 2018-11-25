@@ -3,6 +3,7 @@ import Drawer from '@material-ui/core/Drawer';
 import { withStyles } from '@material-ui/core/styles';
 
 import SearchBox from './SearchBox';
+import TitlebarGridList from './TitlebarGridList';
 
 const styles = {
   drawer: {
@@ -28,6 +29,7 @@ class SearchDrawer extends React.Component {
             inputRef={this.props.inputRef}
             selectedDate={this.props.selectedDate}
           />
+          <TitlebarGridList />
         </div>
       </Drawer>
     )

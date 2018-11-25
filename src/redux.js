@@ -19,7 +19,7 @@ export const reducer = (state = defaultState, action) => {
     case 'ADD_MULTIPLE_TRACKS':
       return {
         ...state,
-        tracks: action.tracks,
+        tracks: [...state.tracks, ...action.tracks]
       };
     default:
       return state

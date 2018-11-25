@@ -1,8 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Button from '@material-ui/core/Button';
+
 
 import ShareButton from './ShareButton';
 import TrackModal from './TrackModal';
+
+import { getRecommendations } from './api/api';
+import { addMultipleTracks } from './redux';
 
 const DayLabels = () => (
   <div id="day-labels">
@@ -61,6 +66,7 @@ class Day extends React.Component {
   };
 
   handleClose = () => {
+    console.log(this.state);
     this.setState({ open: false });
   };
 
@@ -70,23 +76,33 @@ class Day extends React.Component {
     const valid = (track && date <= currentFakeDay) || mode === 'edit';
     const imageUrl = track && track.album.images[0].url;
     const show = valid && imageUrl;
+    
+    let onClick = () => {};
+    if (mode === 'edit') onClick = () => toggleDrawer(true, date);
+    else {
+      if (show) onClick = this.handleOpen;
+    } 
+
     return (
+        <React.Fragment>
         <div
           className="day past"
           style={{
             backgroundImage: `url(${show ? imageUrl : 'http://www.designcouch.com/assets/images/christmaspresent11.svg'})`,
             backgroundSize: show ? '100% 100%' : '45%',
           }}
-          onClick={mode === 'edit' ? () => toggleDrawer(true, date) : this.handleOpen}
+          onClick={onClick}
         >
           <span className="date">
             {date}
           </span>
-          <TrackModal
-            open={this.state.open}
-            handleClose={this.handleClose}
-          />
         </div>
+        <TrackModal
+            open={this.state.open}
+            track={track}
+            handleClose={() => this.handleClose()}
+          />
+        </React.Fragment>
     );
   }
 }
@@ -120,6 +136,13 @@ class Calendar extends React.Component {
     ))
   }
 </section>
+<Button
+  onClick={
+  () => getRecommendations(this.props.token, this.props.tracks)
+  .then(res => this.props.addMultipleTracks(res.tracks))
+  }
+>Recommended autofill
+</Button>
 <ShareButton />
 <div id="bottom" class="collectonme"></div>
 </div>
@@ -127,8 +150,9 @@ class Calendar extends React.Component {
   }
 }
 
-const mapStateToProps = ({ tracks }) => ({
+const mapStateToProps = ({ tracks, token }) => ({
+  token,
   tracks,
 });
 
-export default connect(mapStateToProps)(Calendar);
+export default connect(mapStateToProps, {addMultipleTracks})(Calendar);

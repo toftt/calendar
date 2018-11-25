@@ -21,7 +21,8 @@ const authorize = () => {
   const clientId = 'de8a7d941d164ea4854a21ebaca90c71';
   const redirectUri = 'http://6b86bd3d.eu.ngrok.io';
   const scopes = [
-    'user-top-read'
+    'user-top-read',
+    'user-modify-playback-state'
   ];
 
   const urlParams = new URLSearchParams(window.location.search);
