@@ -32,7 +32,8 @@ body:before {
   z-index: -1;
   
   display: block;
-  background-image: url('https://images.unsplash.com/photo-1516715094483-75da7dee9758?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=d7f624aa2f337d7c936eee2189e6bb95&auto=format&fit=crop&w=1567&q=80');
+/*  background-image: url('https://images.unsplash.com/photo-1516715094483-75da7dee9758?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=d7f624aa2f337d7c936eee2189e6bb95&auto=format&fit=crop&w=1567&q=80');*/
+  background-color: #e9544d;
   background-position: center;
   width: 100vw;
   height: 100vh;
@@ -169,7 +170,7 @@ h1 {
 }
 
 #calendar {
-  max-width: 700px;
+  max-width: 70%;                                  /* asdasdasdasd  */
   border-top:$borderThickness solid $borderColor;
   border-left:$borderThickness solid $borderColor;
   position:relative;
@@ -181,7 +182,7 @@ h1 {
     border-right:$borderThickness solid $borderColor;
     overflow:auto;
     .label {
-      width:14.285714286%;
+      width:16.6666666667%;                                 /* the 14....*/
       float:left;
       text-align: center;
       padding:10px;
@@ -195,29 +196,29 @@ h1 {
     width:100%;
     overflow:hidden;
     .day {
-      width:14.285714286%;
-      padding-bottom:14.285714286%;
+      width:16.6666666667%;                               /* asdasdasdasdasd */
+      padding-bottom:16.6666666667%;                       /* asdasdasdasdasd */
       border-right:$borderThickness solid $borderColor;
       border-bottom:$borderThickness solid $borderColor;
       height:0px;
       float:left;
       position:relative;
       background:rgba(255,255,255,.25);
-      .date {
+      .date {                                           /*REMOVED SOMETHINGS */
         display:block;
-        position:absolute;
-        top:5px;
-        right:5px;
+        top:34%; 					/* from pixels */
+        right:34%;					/* from pixels */
         border-radius:100%;
-        height:25px;
-        width:25px;
         text-align:center;
-        line-height:25px;
-        font-size:15px;
-        color: #403030;
+        line-height:140px;
+	font-weight: bold;
+        font-size:45px;                                  /* sdfd s */
+        color: #FFFFFF;
+	opacity: 0.9;                                    /* ?? */     
         &.today {
           color:white;
           background:#cd1b1b;
+	  opacity: 1;      
         }
       }
       .surprise {

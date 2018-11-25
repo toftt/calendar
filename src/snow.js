@@ -6,15 +6,16 @@ var w = c.width = document.documentElement.clientWidth,
 Snowy();
 function Snowy() {
   var snow, arr = [];
-  var num = 600, tsc = 1, sp = 1;
-  var sc = 1.3, t = 0, mv = 20, min = 1;
+  var num = 400, tsc = 1, sp = 1; //decreased snow from 600 to 400
+  var sc = 1.3, t = 0, mv = 20, min = 1; 
     for (var i = 0; i < num; ++i) {
       snow = new Flake();
       snow.y = Math.random() * (h + 50);
       snow.x = Math.random() * w;
       snow.t = Math.random() * (Math.PI * 2);
-      snow.sz = (100 / (10 + (Math.random() * 100))) * sc;
-      snow.sp = (Math.pow(snow.sz * .8, 2) * .15) * sp;
+// following two 0.5
+      snow.sz = 0.5*(100 / (10 + (Math.random() * 100))) * sc;  
+      snow.sp = 0.5*(Math.pow(snow.sz * .8, 2) * .15) * sp;
       snow.sp = snow.sp < min ? min : snow.sp;
       arr.push(snow);
     }
@@ -29,8 +30,9 @@ function Snowy() {
           let f = arr[i];
           f.t += .05;
           f.t = f.t >= Math.PI * 2 ? 0 : f.t;
-          f.y += f.sp;
-          f.x += Math.sin(f.t * tsc) * (f.sz * .3);
+//following two 0.7
+          f.y += 0.7*f.sp;
+          f.x += 0.7*Math.sin(f.t * tsc) * (f.sz * .3);
           if (f.y > h + 50) f.y = -10 - Math.random() * mv;
           if (f.x > w + mv) f.x = - mv;
           if (f.x < - mv) f.x = w + mv;

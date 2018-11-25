@@ -26,31 +26,25 @@ const dayMap = {
   2: 'two',
   3: 'three',
   4: 'four',
-  5: 'five',
 };
 
 const weeks = [
   {
     id: 'one',
-    days: [null, null, null, null, null, null, 1],
+    days: [1,2,3,4,5,6],
   },
   {
     id: 'two',
-    days: [2, 3, 4, 5, 6, 7, 8],
+    days: [7,8,9,10,11,12],
   },
   {
     id: 'three',
-    days: [9, 10, 11, 12, 13, 14, 15],
+    days: [13,14,15,16,17,18],
   },
   {
     id: 'four',
-    days: [16, 17, 18, 19, 20, 21, 22],
+    days: [19,20,21,22,23,24],
   },
-  {
-    id: 'five',
-    days: [23, 24, null, null, null, null, null],
-  },
-
 ];
 
 const currentFakeDay = 6;
@@ -114,7 +108,6 @@ class Calendar extends React.Component {
   <div id="calendar_wrapper">
   <h1>Spotify Christmas Calendar</h1>
 <section id="calendar" class="collectonme">
-  <DayLabels />
   {
     weeks.map((week) => (
     <div id={week.id} className="week">
