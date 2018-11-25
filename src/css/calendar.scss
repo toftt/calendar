@@ -1,4 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Cookie');
 @import url('https://fonts.googleapis.com/css?family=Roboto');
+
 
 $borderColor:#c6c6c6;
 $borderThickness:1px;
@@ -10,7 +12,7 @@ $hoverTextColor:#cfdef4;
 
 * {
   box-sizing:border-box;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Cookie', sans-serif;
 }
 
 #canv {
@@ -41,8 +43,9 @@ body:before {
 }
 
 h1 {
-  font-size: 27px;
+  font-size: 55px;
   margin: 0;
+  font-weight: normal;
   padding:20px 0;
   text-align:center;
   color:white;
