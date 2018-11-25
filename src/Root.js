@@ -3,11 +3,9 @@ import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import { reducer, setToken } from './redux'
 
-import Menu from './Menu';
-import Calendar from './Calendar';
-import authorize from './api/auth';
+import SubRoot from './SubRoot';
 
-import { getTracks } from './api/api';
+import authorize from './api/auth';
 
 const store = createStore(reducer);
 const token = authorize();
@@ -18,11 +16,7 @@ class Root extends Component {
   render() {
     return (
       <Provider store={store}>
-        <div>
-          <div id="bg-image" />
-          <Menu />
-          <Calendar />
-        </div>
+        <SubRoot />
       </Provider>
     );
   }

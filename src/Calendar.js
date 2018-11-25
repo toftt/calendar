@@ -46,11 +46,15 @@ const weeks = [
   },
 
 ];
-const Day = ({date, imageUrl}) => (
-  <div className="day" style={{
-    backgroundImage: `url(${imageUrl})`,
-    backgroundSize: '100% 100%',
-    }}>
+const Day = ({date, imageUrl, toggleDrawer}) => (
+  <div
+    className="day"
+    style={{
+      backgroundImage: `url(${imageUrl})`,
+      backgroundSize: '100% 100%',
+    }}
+    onClick={() => toggleDrawer(true, date)}
+  >
     <span className="date">
       {date}
     </span>
@@ -59,16 +63,10 @@ const Day = ({date, imageUrl}) => (
 
 class Calendar extends React.Component {
   render() {
+    const toggleDrawer = this.props.toggleDrawer;
    return (
-  <div>
-<section id="modal">
-  <div class="wrapper">
-    <div class="content">
-      <div class="close"></div>
-      <div class="box"></div>
-    </div>
-  </div>
-</section>
+  <div id="calendar_wrapper">
+  <h1>Spotify Christmas Calendar</h1>
 <section id="calendar" class="collectonme">
   <DayLabels />
   {
@@ -80,10 +78,11 @@ class Calendar extends React.Component {
           else {
             const currentTrack = this.props.tracks[day - 1];
             const imageUrl = currentTrack ? currentTrack.album.images[0].url : '';
-            console.log(imageUrl);
-            return (
-              <Day date={day} imageUrl={imageUrl} />
-          )
+            return <Day
+                      date={day}
+                      imageUrl={imageUrl}
+                      toggleDrawer={toggleDrawer}
+                    />
           }
         })
       }

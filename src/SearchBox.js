@@ -1,13 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import TextField from '@material-ui/core/TextField';
+import RootRef from '@material-ui/core/RootRef';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import FormControl from '@material-ui/core/FormControl';
-import Card from '@material-ui/core/Card';
-import Input from '@material-ui/core/Input';
-import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import FormControl from '@material-ui/core/FormControl';
+import Input from '@material-ui/core/Input';
 import { withStyles } from '@material-ui/core/styles';
 
 import TrackCard from './TrackCard';
@@ -34,7 +32,10 @@ const styles = theme => ({
   },
   input: {
     fontSize: '1.3rem',
-  }
+  },
+  trackIndex : {
+    textAlign: 'center',
+  },
 });
 
 class SearchBox extends React.Component {
@@ -78,12 +79,15 @@ class SearchBox extends React.Component {
           <FormControl
             fullWidth
           >
-            <Input
-              className={classes.input}
-              value={this.state.input}
-              onChange={(e) => this.onChange(e)}
-              placeholder="Search for a track"
-            />
+            <RootRef rootRef={this.props.inputRef}>
+              <Input
+                autoFocus
+                className={classes.input}
+                value={this.state.input}
+                onChange={(e) => this.onChange(e)}
+                placeholder="Search for a track"
+              />
+            </RootRef>
           </FormControl>
           </form>
         </ListItem>

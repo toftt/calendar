@@ -13,10 +13,15 @@ $hoverTextColor:#cfdef4;
   font-family: 'Roboto', sans-serif;
 }
 
+#canv {
+  position: absolute;
+}
+
 html, body {
   font-weight:200;
-  height:100%;
-  min-height:100%;
+  height: 100vh;
+  min-height: 100vh;
+  margin: 0;
 }
 
 body:before {
@@ -31,19 +36,15 @@ body:before {
   background-position: center;
   width: 100vw;
   height: 100vh;
-  filter: blur(2px);
+  filter: blur(3px);
 }
 
 h1 {
-  font-size:35px;
+  font-size: 27px;
   margin: 0;
-  padding:50px 0;
+  padding:20px 0;
   text-align:center;
   color:white;
-  text-shadow:2px 2px 0px rgba(0,0,0,.3);
-  em {
-    font-weight:500;
-  }
 }
 
 #modal {
@@ -168,12 +169,12 @@ h1 {
 }
 
 #calendar {
-  max-width:100%;
-  margin:0 auto;
+  max-width: 700px;
   border-top:$borderThickness solid $borderColor;
   border-left:$borderThickness solid $borderColor;
   position:relative;
   z-index:0;
+  margin: 0 auto;
   #day-labels {
     width:100%;
     border-bottom:$borderThickness solid $borderColor;
@@ -212,8 +213,8 @@ h1 {
         width:25px;
         text-align:center;
         line-height:25px;
-        font-size:14px;
-        color:darken($borderColor,30%);
+        font-size:15px;
+        color: #403030;
         &.today {
           color:white;
           background:#cd1b1b;
@@ -248,6 +249,10 @@ h1 {
       &:hover {
         background-color: rgba(0, 0, 0, 0.2);
         cursor:pointer;
+        &.noDate {
+          background:rgba(255, 255, 255, 0.25);
+          cursor:default;
+        }
         .date {
           color:$hoverTextColor;
           &.today {
@@ -330,5 +335,3 @@ h1 {
   84.68% { -webkit-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
   100% { -webkit-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); } 
 }
-
-

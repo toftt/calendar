@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 
 import './global.css';
 import './css/calendar.scss';
+import './snow';
 
 import Root from './Root';
 

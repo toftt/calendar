@@ -24,7 +24,10 @@ class SearchDrawer extends React.Component {
           tabIndex={0}
           role="button"
         >
-          <SearchBox />
+          <SearchBox
+            inputRef={this.props.inputRef}
+            selectedDate={this.props.selectedDate}
+          />
         </div>
       </Drawer>
     )
