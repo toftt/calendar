@@ -1,6 +1,5 @@
 // Get the hash of the url
 const authorize = () => {
-  console.log('yo');
   const hash = window.location.hash
   .substring(1)
   .split('&')
@@ -20,16 +19,22 @@ const authorize = () => {
 
   // Replace with your app's client ID, redirect URI and desired scopes
   const clientId = 'de8a7d941d164ea4854a21ebaca90c71';
-  const redirectUri = 'http://fe04ef2a.eu.ngrok.io';
+  const redirectUri = 'http://6b86bd3d.eu.ngrok.io';
   const scopes = [
     'user-top-read'
   ];
 
+  const urlParams = new URLSearchParams(window.location.search);
+  const tracks = urlParams.get('tracks');
+  const state = tracks;
+
+
   // If there is no token, redirect to Spotify authorization
   if (!_token) {
-    window.location = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join('%20')}&response_type=token&show_dialog=true`;
+    window.location = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join('%20')}&response_type=token&show_dialog=true&state=${state}`;
   }
-  return _token;
+
+  return ({ token: _token, hashState: hash.state});
 }
 
 export default authorize;

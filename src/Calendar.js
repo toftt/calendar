@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import present from './present.svg';
+import ShareButton from './ShareButton';
+import TrackModal from './TrackModal';
 
 const DayLabels = () => (
   <div id="day-labels">
@@ -46,20 +47,49 @@ const weeks = [
   },
 
 ];
-const Day = ({date, imageUrl, toggleDrawer}) => (
-  <div
-    className="day"
-    style={{
-      backgroundImage: `url(${imageUrl})`,
-      backgroundSize: '100% 100%',
-    }}
-    onClick={() => toggleDrawer(true, date)}
-  >
-    <span className="date">
-      {date}
-    </span>
-  </div>
-);
+
+const currentFakeDay = 6;
+
+class Day extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { open: false };
+  }
+
+  handleOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
+  render() {
+    const { date, track, toggleDrawer, mode } = this.props;
+
+    const valid = (track && date <= currentFakeDay) || mode === 'edit';
+    const imageUrl = track && track.album.images[0].url;
+    const show = valid && imageUrl;
+    return (
+        <div
+          className="day past"
+          style={{
+            backgroundImage: `url(${show ? imageUrl : 'http://www.designcouch.com/assets/images/christmaspresent11.svg'})`,
+            backgroundSize: show ? '100% 100%' : '45%',
+          }}
+          onClick={mode === 'edit' ? () => toggleDrawer(true, date) : this.handleOpen}
+        >
+          <span className="date">
+            {date}
+          </span>
+          <TrackModal
+            open={this.state.open}
+            handleClose={this.handleClose}
+          />
+        </div>
+    );
+  }
+}
 
 class Calendar extends React.Component {
   render() {
@@ -77,11 +107,11 @@ class Calendar extends React.Component {
           if (day === null) return <div className="day noDate"></div>;
           else {
             const currentTrack = this.props.tracks[day - 1];
-            const imageUrl = currentTrack ? currentTrack.album.images[0].url : '';
             return <Day
                       date={day}
-                      imageUrl={imageUrl}
+                      track={currentTrack}
                       toggleDrawer={toggleDrawer}
+                      mode={this.props.mode}
                     />
           }
         })
@@ -90,6 +120,7 @@ class Calendar extends React.Component {
     ))
   }
 </section>
+<ShareButton />
 <div id="bottom" class="collectonme"></div>
 </div>
 );

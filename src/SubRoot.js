@@ -33,6 +33,7 @@ class SubRoot extends React.Component {
         />
         <Calendar
           toggleDrawer={(status, date) => this.toggleDrawer(status, date)}
+          mode="edit"
         />
       </React.Fragment>
     );

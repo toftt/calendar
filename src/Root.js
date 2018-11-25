@@ -4,16 +4,25 @@ import { createStore } from 'redux'
 import { reducer, setToken } from './redux'
 
 import SubRoot from './SubRoot';
+import ViewRoot from './ViewRoot';
 
 import authorize from './api/auth';
+import { checkQuery } from './util';
 
 const store = createStore(reducer);
-const token = authorize();
+const { token, hashState } = authorize();
 
 store.dispatch(setToken(token));
 
 class Root extends Component {
   render() {
+    if (hashState !== 'null') {
+      return (
+      <Provider store={store}>
+        <ViewRoot trackIds={hashState.split('_')} />
+      </Provider>
+      );
+    }
     return (
       <Provider store={store}>
         <SubRoot />

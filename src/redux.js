@@ -16,6 +16,11 @@ export const reducer = (state = defaultState, action) => {
         ...state,
         tracks: [...state.tracks, action.track],
       };
+    case 'ADD_MULTIPLE_TRACKS':
+      return {
+        ...state,
+        tracks: action.tracks,
+      };
     default:
       return state
   }
@@ -29,4 +34,9 @@ export const setToken = (token) => ({
 export const addTrack = (track) => ({
   type: 'ADD_TRACK',
   track,
+});
+
+export const addMultipleTracks = (tracks) => ({
+  type: 'ADD_MULTIPLE_TRACKS',
+  tracks,
 });
