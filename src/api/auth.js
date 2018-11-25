@@ -20,9 +20,9 @@ const authorize = () => {
 
   // Replace with your app's client ID, redirect URI and desired scopes
   const clientId = 'de8a7d941d164ea4854a21ebaca90c71';
-  const redirectUri = 'http://e420c7f7.eu.ngrok.io';
+  const redirectUri = 'http://bc0ea3f9.eu.ngrok.io';
   const scopes = [
-    'user-top-read', 'playlist-modify-public', 'playlist-modify-private'
+    'user-top-read', 'playlist-modify-public', 'playlist-modify-private', 'user-modify-playback-state'
   ];
 
   // If there is no token, redirect to Spotify authorization
@@ -30,6 +30,6 @@ const authorize = () => {
     window.location = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join('%20')}&response_type=token&show_dialog=true`;
   }
   return _token;
-}
+};
 
 export default authorize;
