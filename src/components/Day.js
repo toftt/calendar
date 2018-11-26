@@ -2,7 +2,14 @@ import React from 'react';
 
 import TrackModal from './TrackModal';
 
-const currentFakeDay = 6;
+const now = new Date();
+const date = now.getDate();
+const month = now.getMonth();
+
+//const today = 20;
+
+// use this when deploying
+const today = month === 11 ? date : 0; 
 
 class Day extends React.Component {
   constructor(props) {
@@ -22,7 +29,7 @@ class Day extends React.Component {
   render() {
     const { date, track, toggleDrawer, mode } = this.props;
 
-    const valid = (track && date <= currentFakeDay) || mode === 'edit';
+    const valid = (track && date <= today) || mode === 'edit';
     const imageUrl = track && track.album.images[0].url;
     const show = valid && imageUrl;
     
