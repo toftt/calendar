@@ -9,25 +9,6 @@ import Day from './Day';
 import { getRecommendations } from '../api/api';
 import { addMultipleTracks } from '../redux';
 
-const DayLabels = () => (
-  <div id="day-labels">
-    <div class="label">Sun</div>
-    <div class="label">Mon</div>
-    <div class="label">Tue</div>
-    <div class="label">Wed</div>
-    <div class="label">Thu</div>
-    <div class="label">Fri</div>
-    <div class="label">Sat</div>
-</div>
-);
-
-const dayMap = {
-  1: 'one',
-  2: 'two',
-  3: 'three',
-  4: 'four',
-};
-
 const weeks = [
   {
     id: 'one',
@@ -65,10 +46,10 @@ class Calendar extends React.Component {
    return (
   <div id="calendar_wrapper">
   <h1>Spotify Christmas Calendar</h1>
-<section id="calendar" class="collectonme">
+<section id="calendar" className="collectonme">
   {
     weeks.map((week) => (
-    <div id={week.id} className="week">
+    <div id={week.id} key={week.id} className="week">
       {
         week.days.map((day) => {
           if (day === null) return <div className="day noDate"></div>;
@@ -76,6 +57,7 @@ class Calendar extends React.Component {
             const currentTrack = this.props.tracks[day - 1];
             return <Day
                       date={day}
+                      key={day}
                       track={currentTrack}
                       toggleDrawer={toggleDrawer}
                       mode={this.props.mode}
@@ -99,7 +81,7 @@ class Calendar extends React.Component {
   </Button>
   <ShareButton />
 </div>
-<div id="bottom" class="collectonme"></div>
+<div id="bottom" className="collectonme"></div>
 </div>
 );
   }

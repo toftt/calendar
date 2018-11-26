@@ -31,7 +31,7 @@ class Day extends React.Component {
     else if (mode === 'edit' && show) onClick = this.handleOpen;
     else {
       if (show) onClick = this.handleOpen;
-    } 
+    }
 
     return (
         <React.Fragment>

@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Menu from './Menu';
 import Calendar from './Calendar';
 
 import { getMultipleTracks } from '../api/api';

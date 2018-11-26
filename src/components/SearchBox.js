@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import RootRef from '@material-ui/core/RootRef';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import Typography from '@material-ui/core/Typography';
 import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
 import { withStyles } from '@material-ui/core/styles';
@@ -73,7 +72,7 @@ class SearchBox extends React.Component {
         <ListItem>
         <form
           onSubmit={(e) => this.onSubmit(e)}
-          autocomplete="off"
+          autoComplete="off"
           className={classes.container}
         >
           <FormControl
@@ -94,7 +93,7 @@ class SearchBox extends React.Component {
         <ListItem></ListItem>
         {
           this.state.results.map((track) => (
-            <ListItem onClick={() => this.props.addTrack(track)}>
+            <ListItem key={track.id} onClick={() => this.props.addTrack(track)}>
               <TrackCard
                 track={track}
               />
