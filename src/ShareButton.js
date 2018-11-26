@@ -14,6 +14,9 @@ const styles = theme => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing.unit * 4,
   },
+  button: {
+    fontSize: '20px',
+  },
 });
 
 function getModalStyle() {
@@ -60,7 +63,11 @@ class ShareButton extends React.Component {
 
     return (
       <div>
-      <Button onClick={this.handleOpen}>
+      <Button
+        onClick={this.handleOpen}
+        className={classes.button}
+        variant="outlined"
+      >
         Share calendar
       </Button>
               <Modal
@@ -73,6 +80,7 @@ class ShareButton extends React.Component {
                 <Typography variant="h6" id="modal-title">
                 <Input
                   value={getUrl(this.props.tracks)}
+                  style={{width: '100%', overflow: 'hidden', resize: 'none', whiteSpace: 'nowrap'}}
                   inputComponent="textarea"
                   inputRef={(textarea) => this.textArea = textarea}
                   onClick={this.copyToClipboard}

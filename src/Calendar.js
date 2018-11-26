@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
-
+import { withStyles } from '@material-ui/core/styles';
 
 import ShareButton from './ShareButton';
 import TrackModal from './TrackModal';
@@ -47,6 +47,17 @@ const weeks = [
   },
 ];
 
+const styles = {
+  button: {
+    fontSize: '20px',
+  },
+  container: {
+    display: 'flex',
+    justifyContent: 'center',
+    fontSize: '20px',
+  }
+};
+
 const currentFakeDay = 6;
 
 class Day extends React.Component {
@@ -72,7 +83,8 @@ class Day extends React.Component {
     const show = valid && imageUrl;
     
     let onClick = () => {};
-    if (mode === 'edit') onClick = () => toggleDrawer(true, date);
+    if (mode === 'edit' && !show) onClick = () => toggleDrawer(true, date);
+    else if (mode === 'edit' && show) onClick = this.handleOpen;
     else {
       if (show) onClick = this.handleOpen;
     } 
@@ -103,6 +115,7 @@ class Day extends React.Component {
 
 class Calendar extends React.Component {
   render() {
+    const { classes } = this.props;
     const toggleDrawer = this.props.toggleDrawer;
    return (
   <div id="calendar_wrapper">
@@ -129,14 +142,18 @@ class Calendar extends React.Component {
     ))
   }
 </section>
-<Button
-  onClick={
-  () => getRecommendations(this.props.token, this.props.tracks)
-  .then(res => this.props.addMultipleTracks(res.tracks))
-  }
->Recommended autofill
-</Button>
-<ShareButton />
+<div className={classes.container} style={{display: this.props.mode === 'view' ? 'none' : 'flex'}}>
+  <Button
+    variant="outlined"
+    className={classes.button}
+    onClick={
+    () => getRecommendations(this.props.token, this.props.tracks)
+    .then(res => this.props.addMultipleTracks(res.tracks))
+    }
+  >Recommended autofill
+  </Button>
+  <ShareButton />
+</div>
 <div id="bottom" class="collectonme"></div>
 </div>
 );
@@ -148,4 +165,4 @@ const mapStateToProps = ({ tracks, token }) => ({
   tracks,
 });
 
-export default connect(mapStateToProps, {addMultipleTracks})(Calendar);
+export default connect(mapStateToProps, {addMultipleTracks})(withStyles(styles)(Calendar));
