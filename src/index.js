@@ -5,6 +5,6 @@ import './global.css';
 import './css/calendar.scss';
 import './snow';
 
-import Root from './Root';
+import Root from './components/Root';
 
 ReactDOM.render(<Root />, document.getElementById('root'));

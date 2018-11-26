@@ -11,7 +11,7 @@ import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import SkipNextIcon from '@material-ui/icons/SkipNext';
 
-import { startPlayback, pausePlayback } from './api/api';
+import { startPlayback, pausePlayback } from '../api/api';
 
 const styles = theme => ({
   card: {

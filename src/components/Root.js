@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
-import { reducer, setToken } from './redux'
+import { reducer, setToken } from '../redux'
 
 import SubRoot from './SubRoot';
 import ViewRoot from './ViewRoot';
 
-import authorize from './api/auth';
-import { checkQuery } from './util';
+import authorize from '../api/auth';
 
 const store = createStore(reducer);
 const { token, hashState } = authorize();

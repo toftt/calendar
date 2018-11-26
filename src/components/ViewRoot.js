@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import Menu from './Menu';
 import Calendar from './Calendar';
 
-import { getMultipleTracks } from './api/api';
-import { addMultipleTracks } from './redux';
+import { getMultipleTracks } from '../api/api';
+import { addMultipleTracks } from '../redux';
 
 //this is for the shared view
 class ViewRoot extends React.Component {

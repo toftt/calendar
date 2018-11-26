@@ -9,8 +9,8 @@ import Input from '@material-ui/core/Input';
 import { withStyles } from '@material-ui/core/styles';
 
 import TrackCard from './TrackCard';
-import { addTrack } from './redux';
-import { getTracks } from './api/api';
+import { addTrack } from '../redux';
+import { getTracks } from '../api/api';
 
 const styles = theme => ({
   card: {
