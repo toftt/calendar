@@ -1,25 +1,36 @@
 const defaultState = {
   token: null,
-  tracks: [],
+  tracks: Array.apply(null, Array(24)),
 };
 
 export const reducer = (state = defaultState, action) => {
-  console.log(state);
   switch (action.type) {
     case 'SET_TOKEN':
       return {
         ...state,
         token: action.token,
       };
-    case 'ADD_TRACK':
+    case 'SET_TRACK':
       return {
         ...state,
-        tracks: [...state.tracks, action.track],
+        tracks: state.tracks.map((track, index) => {
+          if (index + 1 !== action.index) return track;
+          else return action.track;
+        }),
       };
-    case 'ADD_MULTIPLE_TRACKS':
+    case 'REPLACE_ALL_TRACKS':
       return {
         ...state,
-        tracks: [...state.tracks, ...action.tracks]
+        tracks: action.tracks,
+      };
+    case 'ADD_RECOMMENDATIONS':
+      const recTracks = action.tracks;
+      return {
+        ...state,
+        tracks: state.tracks.map((track) => {
+          if (track) return track;
+          else return recTracks.shift();
+        }),
       };
     default:
       return state
@@ -31,12 +42,18 @@ export const setToken = (token) => ({
   token,
 })
 
-export const addTrack = (track) => ({
-  type: 'ADD_TRACK',
+export const setTrack = (track, index) => ({
+  type: 'SET_TRACK',
+  index,
   track,
 });
 
-export const addMultipleTracks = (tracks) => ({
-  type: 'ADD_MULTIPLE_TRACKS',
+export const replaceAllTracks = (tracks) => ({
+  type: 'REPLACE_ALL_TRACKS',
+  tracks,
+});
+
+export const addRecommendations = (tracks) => ({
+  type: 'ADD_RECOMMENDATIONS',
   tracks,
 });

@@ -31,6 +31,8 @@ function getModalStyle() {
 }
 
 const getUrl = (tracks) => {
+  if (tracks.filter(x => x).length !== 24) return 'You need to complete the calendar.';
+
   const origin = window.location.origin;
   const ids = tracks.map(track => track.id);
   return `${origin}?tracks=${ids.join('_')}`;

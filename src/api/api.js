@@ -36,9 +36,12 @@ export const pausePlayback = (token) => {
 export const getRecommendations = (token, tracks) => {
   Spotify.setAccessToken(token);
 
+  // removes undefined tracks
+  const addedTracks = tracks.filter(t => t);
+
   const obj = {
-    seed_tracks: tracks.map(t => t.id),
-    limit: 24 - tracks.length,
+    seed_tracks: addedTracks.map(t => t.id),
+    limit: 24 - addedTracks.length,
   };
 
   return Spotify

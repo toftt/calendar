@@ -4,14 +4,14 @@ import { connect } from 'react-redux';
 import Calendar from './Calendar';
 
 import { getMultipleTracks } from '../api/api';
-import { addMultipleTracks } from '../redux';
+import { replaceAllTracks } from '../redux';
 
 //this is for the shared view
 class ViewRoot extends React.Component {
 
   componentWillMount() {
     getMultipleTracks(this.props.token, this.props.trackIds)
-      .then(data => this.props.addMultipleTracks(data.tracks));
+      .then(data => this.props.replaceAllTracks(data.tracks));
   }
 
   render() {
@@ -32,4 +32,4 @@ const mapStateToProps = ({ token }) => ({
   token,
 });
 
-export default connect(mapStateToProps, { addMultipleTracks })(ViewRoot);
+export default connect(mapStateToProps, { replaceAllTracks })(ViewRoot);

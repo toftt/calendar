@@ -7,7 +7,7 @@ import ShareButton from './ShareButton';
 import Day from './Day';
 
 import { getRecommendations } from '../api/api';
-import { addMultipleTracks } from '../redux';
+import { addRecommendations } from '../redux';
 
 const weeks = [
   {
@@ -69,18 +69,25 @@ class Calendar extends React.Component {
     ))
   }
 </section>
-<div className={classes.container} style={{display: this.props.mode === 'view' ? 'none' : 'flex'}}>
-  <Button
-    variant="outlined"
-    className={classes.button}
-    onClick={
-    () => getRecommendations(this.props.token, this.props.tracks)
-    .then(res => this.props.addMultipleTracks(res.tracks))
-    }
-  >Recommended autofill
-  </Button>
-  <ShareButton />
-</div>
+{
+  this.props.mode === 'view'
+    ? null
+    : (
+      <div className={classes.container}>
+        <Button
+          variant="outlined"
+          className={classes.button}
+          onClick={
+          () => getRecommendations(this.props.token, this.props.tracks)
+          .then(res => this.props.addRecommendations(res.tracks))
+          }
+        >
+          Recommended autofill
+        </Button>
+        <ShareButton />
+      </div>
+    )
+}
 <div id="bottom" className="collectonme"></div>
 </div>
 );
@@ -92,4 +99,4 @@ const mapStateToProps = ({ tracks, token }) => ({
   tracks,
 });
 
-export default connect(mapStateToProps, {addMultipleTracks})(withStyles(styles)(Calendar));
+export default connect(mapStateToProps, {addRecommendations})(withStyles(styles)(Calendar));
