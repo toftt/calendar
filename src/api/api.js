@@ -9,7 +9,7 @@ Spotify.setPromiseImplementation(Q);
 // searching for a track
 export const getTracks = (token, query) => {
   Spotify.setAccessToken(token);
-  
+
   return Spotify
     .searchTracks(query, { limit: 10 });
 };
@@ -36,8 +36,17 @@ export const pausePlayback = (token) => {
 export const getRecommendations = (token, tracks) => {
   Spotify.setAccessToken(token);
 
-  // removes undefined tracks
-  const addedTracks = tracks.filter(t => t);
+  const n = 5;
+
+  /*
+  * removes undefined tracks and select 5 tracks randomly because
+  * it is allowed up to 5 seed values
+  * */
+  const addedTracks = tracks.filter(t => t)
+                          .map(x => ({ x, r: Math.random() }))
+                          .sort((a, b) => a.r - b.r)
+                          .map(a => a.x)
+                          .slice(0, n);
 
   const obj = {
     seed_tracks: addedTracks.map(t => t.id),
