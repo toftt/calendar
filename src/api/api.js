@@ -77,3 +77,26 @@ export const getCategoryPlaylists = (token, categoryId) => {
   return Spotify
       .getCategoryPlaylists(categoryId);
 };
+
+/*json -> {user_id:<user_id>, name:<name>, description:<description>} */
+export const createPlaylist = (token, json) => {
+    Spotify.setAccessToken(token);
+
+    return Spotify
+        .createPlaylist(json);
+};
+
+/*json -> {"uris": ["spotify:track:4iV5W9uYEdYUVa79Axb7Rh","spotify:track:1301WleyT98MSxVHPZCA6M"], "playlist_id":<playlist_id>} */
+export const addTrackToPlaylist = (token, playlistId, uris) => {
+    Spotify.setAccessToken(token);
+
+    return Spotify
+        .addTracksToPlaylist(playlistId,uris);
+};
+
+export const getCurrentUsersPlaylists = (token) => {
+    Spotify.setAccessToken(token);
+
+    return Spotify
+        .getUserPlaylists();
+};
