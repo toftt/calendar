@@ -6,8 +6,6 @@ const now = new Date();
 const date = now.getDate();
 const month = now.getMonth();
 
-//const today = 20;
-
 // use this when deploying
 const today = month === 11 ? date : 0;
 

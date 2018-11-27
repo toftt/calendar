@@ -12,7 +12,7 @@ import { setSearchResults, setCategories } from '../redux';
 const getTracksFromCategory = (token, categoryId) => {
   return getCategoryPlaylists(token, categoryId)
     .then(data => getPlaylistTracks(token, data.playlists.items[0].id))
-    .then(data => data.items.map(playlistItem => playlistItem.track));
+    .then(data => data.items.map(playlistItem => playlistItem.track).slice(0, 10));
 };
 
 const styles = theme => ({

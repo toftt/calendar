@@ -74,8 +74,8 @@ class TrackCard extends React.Component {
             </Typography>
           </CardContent>
           <div className={classes.controls}>
-            <IconButton aria-label="Previous">
-              {theme.direction === 'rtl' ? <SkipNextIcon /> : <SkipPreviousIcon />}
+            <IconButton disabled aria-label="Previous">
+              <SkipPreviousIcon />
             </IconButton>
             <IconButton
               aria-label="Play/pause"
@@ -87,8 +87,8 @@ class TrackCard extends React.Component {
                   : <PlayArrowIcon className={classes.playIcon} />
               }
             </IconButton>
-            <IconButton aria-label="Next">
-              {theme.direction === 'rtl' ? <SkipPreviousIcon /> : <SkipNextIcon />}
+            <IconButton disabled aria-label="Next">
+              <SkipNextIcon />
             </IconButton>
             {
               !this.props.canRemove
@@ -110,7 +110,7 @@ class TrackCard extends React.Component {
         <CardMedia
           className={classes.cover}
           image={track.album.images[0].url}
-          title="Live from space album cover"
+          title={`${track.album.name} Album Cover`}
         />
       </Card>
     );
