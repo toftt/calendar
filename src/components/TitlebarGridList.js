@@ -25,7 +25,7 @@ const styles = theme => ({
   },
 });
 
- 
+
 class TitlebarGridList extends React.Component {
   constructor(props) {
     super(props);
@@ -43,7 +43,7 @@ class TitlebarGridList extends React.Component {
 
     return (
       <div className={classes.root}>
-        <GridList cellHeight={180} className={classes.gridList}>
+        <GridList cellHeight={180} className={classes.gridList} style={{ height: 'auto' }}>
           <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
           </GridListTile>
           {this.state.categories.map(tile => (
