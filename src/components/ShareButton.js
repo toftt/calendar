@@ -40,9 +40,9 @@ function getModalStyle() {
 const getUrl = (tracks) => {
   if (tracks.filter(x => x).length !== 24) return 'You need to complete the calendar.';
 
-  const origin = window.location.origin;
+  const { origin, pathname } = window.location;
   const ids = tracks.map(track => track.id);
-  return `${origin}?tracks=${ids.join('_')}`;
+  return `${origin + pathname}?tracks=${ids.join('_')}`;
 }
 
 class ShareButton extends React.Component {
@@ -76,6 +76,7 @@ class ShareButton extends React.Component {
         onClick={this.handleOpen}
         className={classes.button}
         variant="outlined"
+        disableRipple
       >
         Share calendar
       </Button>

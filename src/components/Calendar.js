@@ -88,6 +88,7 @@ class Calendar extends React.Component {
           () => getRecommendations(this.props.token, this.props.tracks)
           .then(res => this.props.addRecommendations(res.tracks))
           }
+          disableRipple
         >
           Recommended autofill
         </Button>
