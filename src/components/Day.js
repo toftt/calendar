@@ -56,6 +56,8 @@ class Day extends React.Component {
         </div>
         <TrackModal
             open={this.state.open}
+            date={date}
+            mode={this.props.mode}
             track={track}
             handleClose={() => this.handleClose()}
           />

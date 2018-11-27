@@ -27,7 +27,7 @@ const styles = theme => ({
 
 class TrackModal extends React.Component {
   render() {
-    const { classes, open, handleClose } = this.props;
+    const { classes, open, date, handleClose } = this.props;
 
     return (
       <div>
@@ -38,7 +38,12 @@ class TrackModal extends React.Component {
               onClose={() => handleClose()}
             >
               <div style={getModalStyle()} className={classes.paper}>
-                <TrackCard track={this.props.track} />
+                <TrackCard
+                  track={this.props.track}
+                  date={date}
+                  canRemove={this.props.mode === 'edit'}
+                  handleClose={handleClose}
+                />
               </div>
             </Modal>
         </div>

@@ -10,8 +10,10 @@ import Typography from '@material-ui/core/Typography';
 import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import SkipNextIcon from '@material-ui/icons/SkipNext';
+import ClearIcon from '@material-ui/icons/Clear';
 
 import { startPlayback, pausePlayback } from '../api/api';
+import { removeTrack } from '../redux';
 
 const styles = theme => ({
   card: {
@@ -52,13 +54,14 @@ class TrackCard extends React.Component {
 
 
   handleClick = (e) => {
+    e.stopPropagation();
     if (this.state.playing === false) startPlayback(this.props.token, {uris: [this.props.track.uri]})
       .then(x => this.setState({ playing: true }));
     else pausePlayback(this.props.token).then(() => this.setState({ playing: false }));
   }
 
   render() {
-    const { classes, theme, track } = this.props;
+    const { classes, theme, track, date, removeTrack, handleClose } = this.props;
     const { name, artists } = track;
 
     return (
@@ -78,13 +81,28 @@ class TrackCard extends React.Component {
             </IconButton>
             <IconButton
               aria-label="Play/pause"
-              onClick={() => this.handleClick()}
+              onClick={(e) => this.handleClick(e)}
             >
               <PlayArrowIcon className={classes.playIcon} />
             </IconButton>
             <IconButton aria-label="Next">
               {theme.direction === 'rtl' ? <SkipPreviousIcon /> : <SkipNextIcon />}
             </IconButton>
+            {
+              !this.props.canRemove
+                ? null
+                : (
+                    <IconButton
+                      aria-label="Clear"
+                      onClick={() => {
+                        handleClose()
+                        removeTrack(date)
+                      }}
+                    >
+                      <ClearIcon />
+                    </IconButton>
+                )
+            }
           </div>
         </div>
         <CardMedia
@@ -106,4 +124,4 @@ const mapStateToProps = ({ token }) => ({
   token,
 });
 
-export default connect(mapStateToProps)(withStyles(styles, { withTheme: true })(TrackCard));
+export default connect(mapStateToProps, { removeTrack })(withStyles(styles, { withTheme: true })(TrackCard));

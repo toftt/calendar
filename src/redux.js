@@ -5,6 +5,7 @@ const defaultState = {
 };
 
 export const reducer = (state = defaultState, action) => {
+  console.log(action);
   switch (action.type) {
     case 'SET_TOKEN':
       return {
@@ -38,6 +39,11 @@ export const reducer = (state = defaultState, action) => {
         ...state,
         searchResults: action.tracks,
       };
+    case 'REMOVE_TRACK':
+      return {
+        ...state,
+        tracks: state.tracks.map((track, index) => index + 1 === action.index ? null : track),
+      };
     default:
       return state
   }
@@ -54,6 +60,11 @@ export const setTrack = (track, index) => ({
   track,
 });
 
+export const removeTrack = (index) => ({
+  type: 'REMOVE_TRACK',
+  index,
+});
+
 export const replaceAllTracks = (tracks) => ({
   type: 'REPLACE_ALL_TRACKS',
   tracks,
@@ -68,3 +79,4 @@ export const setSearchResults = (tracks) => ({
   type: 'SET_SEARCH_RESULTS',
   tracks,
 });
+

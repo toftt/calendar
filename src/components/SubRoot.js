@@ -14,7 +14,6 @@ class SubRoot extends React.Component {
   }
 
   toggleDrawer = (status, selectedDate) => {
-    console.log(selectedDate);
     this.setState({
       drawerIsOpen: status,
       selectedDate,
