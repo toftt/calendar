@@ -31,6 +31,13 @@ const weeks = [
 const styles = {
   button: {
     fontSize: '20px',
+    backgroundColor: '#007853',
+    color: 'white',
+    margin:'5px',
+    fontFamily:'Molengo',
+    '&:hover': {
+        backgroundColor: '#007853',
+    },
   },
   container: {
     display: 'flex',

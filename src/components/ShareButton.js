@@ -16,6 +16,13 @@ const styles = theme => ({
   },
   button: {
     fontSize: '20px',
+    backgroundColor: '#007853',
+    color: 'white',
+    margin:'5px',
+    fontFamily:'Molengo',
+    '&:hover': {
+        backgroundColor: '#007853',
+    },
   },
 });
 
@@ -36,7 +43,7 @@ const getUrl = (tracks) => {
   const origin = window.location.origin;
   const ids = tracks.map(track => track.id);
   return `${origin}?tracks=${ids.join('_')}`;
-} 
+}
 
 class ShareButton extends React.Component {
   constructor(props) {
