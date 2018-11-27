@@ -3,6 +3,7 @@ const defaultState = {
   tracks: Array.apply(null, Array(24)),
   searchResults: [],
   currentlyPlaying: null,
+  categories: [],
 };
 
 export const reducer = (state = defaultState, action) => {
@@ -39,6 +40,11 @@ export const reducer = (state = defaultState, action) => {
       return {
         ...state,
         searchResults: action.tracks,
+      };
+    case 'SET_CATEGORIES':
+      return {
+        ...state,
+        categories: action.categories,
       };
     case 'REMOVE_TRACK':
       return {
@@ -89,6 +95,11 @@ export const addRecommendations = (tracks) => ({
 export const setSearchResults = (tracks) => ({
   type: 'SET_SEARCH_RESULTS',
   tracks,
+});
+
+export const setCategories = (categories) => ({
+  type: 'SET_CATEGORIES',
+  categories,
 });
 
 export const play = (trackId) => ({

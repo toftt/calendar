@@ -22,7 +22,6 @@ class Day extends React.Component {
   };
 
   handleClose = () => {
-    console.log(this.state);
     this.setState({ open: false });
   };
 
