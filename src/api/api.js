@@ -60,7 +60,7 @@ export const getRecommendations = (token, tracks) => {
 export const getCategories = (token) => {
   Spotify.setAccessToken(token);
 
-  let items = []
+  let items = [];
   return Spotify.getCategories().then((data) => {
       data.categories.items.forEach((item) => {
           if (CATEGORY_LIST.includes(item.id)) {
