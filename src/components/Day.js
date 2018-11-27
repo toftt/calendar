@@ -9,7 +9,7 @@ const month = now.getMonth();
 //const today = 20;
 
 // use this when deploying
-const today = month === 11 ? date : 0; 
+const today = month === 11 ? date : 0;
 
 class Day extends React.Component {
   constructor(props) {

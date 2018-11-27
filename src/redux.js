@@ -2,6 +2,7 @@ const defaultState = {
   token: null,
   tracks: Array.apply(null, Array(24)),
   searchResults: [],
+  currentlyPlaying: null,
 };
 
 export const reducer = (state = defaultState, action) => {
@@ -44,6 +45,16 @@ export const reducer = (state = defaultState, action) => {
         ...state,
         tracks: state.tracks.map((track, index) => index + 1 === action.index ? null : track),
       };
+    case 'PLAY':
+      return {
+        ...state,
+        currentlyPlaying: action.trackId,
+      };
+    case 'PAUSE':
+      return {
+        ...state,
+        currentlyPlaying: null,
+      };
     default:
       return state
   }
@@ -80,3 +91,9 @@ export const setSearchResults = (tracks) => ({
   tracks,
 });
 
+export const play = (trackId) => ({
+  type: 'PLAY',
+  trackId,
+});
+
+export const pause = () => ({ type: 'PAUSE' });

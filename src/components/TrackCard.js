@@ -9,11 +9,12 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import PauseIcon from '@material-ui/icons/Pause';
 import SkipNextIcon from '@material-ui/icons/SkipNext';
 import ClearIcon from '@material-ui/icons/Clear';
 
 import { startPlayback, pausePlayback } from '../api/api';
-import { removeTrack } from '../redux';
+import { removeTrack, play, pause } from '../redux';
 
 const styles = theme => ({
   card: {
@@ -47,23 +48,20 @@ const styles = theme => ({
 });
 
 class TrackCard extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { playing: false }
-  }
-
 
   handleClick = (e) => {
     e.stopPropagation();
-    if (this.state.playing === false) startPlayback(this.props.token, {uris: [this.props.track.uri]})
-      .then(x => this.setState({ playing: true }));
-    else pausePlayback(this.props.token).then(() => this.setState({ playing: false }));
+
+    const { currentlyPlaying, play, pause, track: { id } } = this.props;
+    if (id === currentlyPlaying) pausePlayback(this.props.token).then(() => pause());
+    else startPlayback(this.props.token, {uris: [this.props.track.uri]}).then(() => play(id));
   }
 
   render() {
-    const { classes, theme, track, date, removeTrack, handleClose } = this.props;
-    const { name, artists } = track;
+    const { classes, theme, track, date, removeTrack, handleClose, currentlyPlaying } = this.props;
+    const { name, artists, id } = track;
 
+    const playing = id === currentlyPlaying;
     return (
       <Card className={classes.card}>
         <div className={classes.details}>
@@ -83,7 +81,11 @@ class TrackCard extends React.Component {
               aria-label="Play/pause"
               onClick={(e) => this.handleClick(e)}
             >
-              <PlayArrowIcon className={classes.playIcon} />
+              {
+                playing
+                  ? <PauseIcon className={classes.playIcon}  />
+                  : <PlayArrowIcon className={classes.playIcon} />
+              }
             </IconButton>
             <IconButton aria-label="Next">
               {theme.direction === 'rtl' ? <SkipPreviousIcon /> : <SkipNextIcon />}
@@ -120,8 +122,9 @@ TrackCard.propTypes = {
   theme: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = ({ token }) => ({
+const mapStateToProps = ({ token, currentlyPlaying }) => ({
   token,
+  currentlyPlaying,
 });
 
-export default connect(mapStateToProps, { removeTrack })(withStyles(styles, { withTheme: true })(TrackCard));
+export default connect(mapStateToProps, { removeTrack, play, pause })(withStyles(styles, { withTheme: true })(TrackCard));
