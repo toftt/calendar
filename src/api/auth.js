@@ -1,29 +1,18 @@
+const AUTH_ENDPOINT = 'https://accounts.spotify.com/authorize';
+const CLIENT_ID = 'de8a7d941d164ea4854a21ebaca90c71';
+const REDIRECT_URI = 'http://09de258c.eu.ngrok.io';
+const SCOPES = [
+  'user-top-read',
+  'user-modify-playback-state'
+];
+
 // Get the hash of the url
 const authorize = () => {
-  const hash = window.location.hash
-  .substring(1)
-  .split('&')
-  .reduce(function (initial, item) {
-    if (item) {
-      var parts = item.split('=');
-      initial[parts[0]] = decodeURIComponent(parts[1]);
-    }
-    return initial;
-  }, {});
-  window.location.hash = '';
+  const hash = parseHash();
+  let token = hash.access_token;
 
-  // Set token
-  let _token = hash.access_token || getLocalStorageToken();
-
-  const authEndpoint = 'https://accounts.spotify.com/authorize';
-
-  // Replace with your app's client ID, redirect URI and desired scopes
-  const clientId = 'de8a7d941d164ea4854a21ebaca90c71';
-  const redirectUri = 'http://09de258c.eu.ngrok.io';
-  const scopes = [
-    'user-top-read',
-    'user-modify-playback-state'
-  ];
+  if (token) saveTokenInfo(token, hash.expires_in);
+  else token = getLocalStorageToken();
 
   const urlParams = new URLSearchParams(window.location.search);
   const tracks = urlParams.get('tracks');
@@ -31,8 +20,8 @@ const authorize = () => {
 
 
   // If there is no token, redirect to Spotify authorization
-  if (!_token) {
-    window.location = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join('%20')}&response_type=token&show_dialog=true&state=${state}`;
+  if (!token) {
+    window.location = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=${SCOPES.join('%20')}&response_type=token&show_dialog=true&state=${state}`;
   }
 
   // case 1: user is in view mode and has been redirected from spotify -- tracks are in hash.state (the url hash)
@@ -40,8 +29,24 @@ const authorize = () => {
   // case 3: user is in edit mode and has already authorized -- there are no tracks
   const hashState = hash.state || tracks || 'null';
 
-  saveTokenInfo(_token, hash.expires_in);
-  return ({ token: _token, hashState});
+  return ({ token, hashState});
+}
+
+const parseHash = () => {
+  const hash = window.location.hash
+    .substring(1)
+    .split('&')
+    .reduce(function (initial, item) {
+      if (item) {
+        var parts = item.split('=');
+        initial[parts[0]] = decodeURIComponent(parts[1]);
+      }
+      return initial;
+    }, {});
+  
+  window.location.hash = '';
+
+  return hash;
 }
 
 const getLocalStorageToken = () => {
@@ -54,10 +59,11 @@ const getLocalStorageToken = () => {
 };
 
 const saveTokenInfo = (token, expiresIn) => {
+  const now = new Date();
+  const expirationTime = now.getTime() + parseInt(expiresIn) * 1000;
+
   localStorage.setItem('token', token);
-  localStorage.setItem('expirationTime', (new Date()).getTime + expiresIn);
+  localStorage.setItem('expirationTime', expirationTime);
 }
-
-
 
 export default authorize;

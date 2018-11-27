@@ -1,6 +1,7 @@
 const defaultState = {
   token: null,
   tracks: Array.apply(null, Array(24)),
+  searchResults: [],
 };
 
 export const reducer = (state = defaultState, action) => {
@@ -32,6 +33,11 @@ export const reducer = (state = defaultState, action) => {
           else return recTracks.shift();
         }),
       };
+    case 'SET_SEARCH_RESULTS':
+      return {
+        ...state,
+        searchResults: action.tracks,
+      };
     default:
       return state
   }
@@ -55,5 +61,10 @@ export const replaceAllTracks = (tracks) => ({
 
 export const addRecommendations = (tracks) => ({
   type: 'ADD_RECOMMENDATIONS',
+  tracks,
+});
+
+export const setSearchResults = (tracks) => ({
+  type: 'SET_SEARCH_RESULTS',
   tracks,
 });

@@ -68,3 +68,10 @@ export const getCategoryPlaylists = (token, categoryId) => {
   return Spotify
       .getCategoryPlaylists(categoryId);
 };
+
+export const getPlaylistTracks = (token, playlistId) => {
+  Spotify.setAccessToken(token);
+
+  return Spotify
+      .getPlaylistTracks(playlistId);
+};

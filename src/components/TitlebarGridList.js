@@ -6,7 +6,14 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 
-import { getCategories } from '../api/api';
+import { getCategories, getCategoryPlaylists, getPlaylistTracks } from '../api/api';
+import { setSearchResults } from '../redux';
+
+const getTracksFromCategory = (token, categoryId) => {
+  return getCategoryPlaylists(token, categoryId)
+    .then(data => getPlaylistTracks(token, data.playlists.items[0].id))
+    .then(data => data.items.map(playlistItem => playlistItem.track));
+};
 
 const styles = theme => ({
   root: {
@@ -47,7 +54,10 @@ class TitlebarGridList extends React.Component {
           <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
           </GridListTile>
           {this.state.categories.map(tile => (
-            <GridListTile key={tile.id}>
+            <GridListTile
+              key={tile.id}
+              onClick={() => getTracksFromCategory(this.props.token, tile.id).then(tracks => this.props.setSearchResults(tracks))}
+            >
               <img src={tile.icons[0].url} alt={tile.name} />
               <GridListTileBar
                 title={tile.name}
@@ -66,4 +76,4 @@ TitlebarGridList.propTypes = {
 
 const mapStateToProps = ({token}) => ({token});
 
-export default connect(mapStateToProps)(withStyles(styles)(TitlebarGridList));
+export default connect(mapStateToProps, { setSearchResults })(withStyles(styles)(TitlebarGridList));

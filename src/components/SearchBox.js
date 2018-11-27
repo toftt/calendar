@@ -8,7 +8,7 @@ import Input from '@material-ui/core/Input';
 import { withStyles } from '@material-ui/core/styles';
 
 import TrackCard from './TrackCard';
-import { setTrack } from '../redux';
+import { setTrack, setSearchResults } from '../redux';
 import { getTracks } from '../api/api';
 
 const styles = theme => ({
@@ -59,7 +59,7 @@ class SearchBox extends React.Component {
     if (!input) this.setState({ input: 'Queen - Bohemian Rhapsody'});
 
     getTracks(this.props.token, this.state.input).then((data) => {
-      this.setState({ results: data.tracks.items });
+      this.props.setSearchResults(data.tracks.items);
     });
   }
 
@@ -92,7 +92,7 @@ class SearchBox extends React.Component {
         </ListItem>
         <ListItem></ListItem>
         {
-          this.state.results.map((track) => (
+          this.props.searchResults.map((track) => (
             <ListItem
               key={track.id}
               onClick={() => this.props.setTrack(track, this.props.selectedDate)}
@@ -109,8 +109,8 @@ class SearchBox extends React.Component {
   }
 }
 
-const mapStateToProps = ({ token }) => {
-  return { token };
+const mapStateToProps = ({ token, searchResults }) => {
+  return { token, searchResults };
 };
 
-export default connect(mapStateToProps, { setTrack })(withStyles(styles)(SearchBox));
+export default connect(mapStateToProps, { setTrack, setSearchResults })(withStyles(styles)(SearchBox));
