@@ -42,6 +42,7 @@ class TrackModal extends React.Component {
                   track={this.props.track}
                   date={date}
                   canRemove={this.props.mode === 'edit'}
+                  canAdd={this.props.mode !== 'edit'}
                   handleClose={handleClose}
                 />
               </div>

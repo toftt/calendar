@@ -1,9 +1,11 @@
 const AUTH_ENDPOINT = 'https://accounts.spotify.com/authorize';
-const CLIENT_ID = 'de8a7d941d164ea4854a21ebaca90c71';
-const REDIRECT_URI = 'http://09de258c.eu.ngrok.io';
+const CLIENT_ID = 'f888403a81a74d4697d460b0ce0127b5';
+const REDIRECT_URI = 'http://2b98291c.eu.ngrok.io';
 const SCOPES = [
   'user-top-read',
-  'user-modify-playback-state'
+  'user-modify-playback-state',
+  'playlist-modify-public',
+  'playlist-modify-private'
 ];
 
 // Get the hash of the url
@@ -43,7 +45,7 @@ const parseHash = () => {
       }
       return initial;
     }, {});
-  
+
   window.location.hash = '';
 
   return hash;

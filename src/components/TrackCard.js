@@ -12,8 +12,9 @@ import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import PauseIcon from '@material-ui/icons/Pause';
 import SkipNextIcon from '@material-ui/icons/SkipNext';
 import ClearIcon from '@material-ui/icons/Clear';
+import AddIcon from '@material-ui/icons/Add';
 
-import { startPlayback, pausePlayback } from '../api/api';
+import { startPlayback, pausePlayback, createPlaylist, addTrackToPlaylist } from '../api/api';
 import { removeTrack, play, pause } from '../redux';
 
 const styles = theme => ({
@@ -55,7 +56,33 @@ class TrackCard extends React.Component {
     const { currentlyPlaying, play, pause, track: { id } } = this.props;
     if (id === currentlyPlaying) pausePlayback(this.props.token).then(() => pause());
     else startPlayback(this.props.token, {uris: [this.props.track.uri]}).then(() => play(id));
-  }
+  };
+
+  addTrackToPlaylistReally = (playlistId) => {
+      addTrackToPlaylist(this.props.token, playlistId, [this.props.track.uri]).then((data) =>{
+          console.log("hello from add track to playlist");
+          console.log("data");
+          console.log(data);
+      });
+  };
+
+  addTrack =  () => {
+      console.log("hello from add track 1");
+      const playlistId = localStorage.getItem('playlistId');
+      if (playlistId === null) {
+          createPlaylist(this.props.token, {name:"Spotify Christmas Calendar Playlist", description:"Made with love"}).then((data) => {
+            console.log("hello from create playlist");
+            console.log("data");
+            console.log(data);
+            localStorage.setItem('playlistId', data.id);
+            this.addTrackToPlaylistReally(data.id);
+          })
+      }
+      else {
+        this.addTrackToPlaylistReally(playlistId);
+      }
+
+  };
 
   render() {
     const { classes, theme, track, date, removeTrack, handleClose, currentlyPlaying } = this.props;
@@ -104,6 +131,20 @@ class TrackCard extends React.Component {
                       <ClearIcon />
                     </IconButton>
                 )
+            }
+            {
+              !this.props.canAdd
+                  ? null
+                  : (
+                      <IconButton
+                          aria-label="Add"
+                          onClick={() => {
+                              this.addTrack()
+                          }}
+                      >
+                          <AddIcon />
+                      </IconButton>
+                  )
             }
           </div>
         </div>
