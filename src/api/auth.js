@@ -1,5 +1,5 @@
 const AUTH_ENDPOINT = 'https://accounts.spotify.com/authorize';
-const CLIENT_ID = 'f888403a81a74d4697d460b0ce0127b5';
+const CLIENT_ID = 'de8a7d941d164ea4854a21ebaca90c71';
 const REDIRECT_URI = 'https://toftt.github.io/calendar/';
 const SCOPES = [
   'user-top-read',
