@@ -1,44 +1,34 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# ![Logo](/public/spotify_icon.png) Spotify Christmas Calendar
+A Christmas Calendar which can be made by any Spotify user and shared with other Spotify users, powered by Spotify. This project won 1st place on Spotify DevX Sthlm Hackathon 2018. The calendar may be accessed at [toftt.github.io/calendar](https://toftt.github.io/calendar/).
 
-In the project directory, you can run:
+## The team
+* Andrea Ramazzina
+* Ceren Dikmen
+* Joachim Toft
+* Venkat Akkinepally
 
-### `npm start`
+## How to use Spotify Christmas Calendar?
+### To create a calendar:
+ 1. Add different songs for each day by searching from the search bar
+ 2. If you can not end up with 24 songs, don't worry we are here for you! Ask for recommendations with the "Recommended Autofill" button at the bottom of the page. We will complete the rest of the remaining days for you based on the songs you added recently :)
+ 3. Press "Share Calendar" button to share your calendar using the link generated with your friends/family to wish them "Merry Christmas!"
+ 
+### To listen a calendar:
+  1. Go to the url shared with you
+  2. Do not forget one song for each day! So, you can not open the song box before the day comes. Be patient!
+  3. You can play/pause songs by clicking on the song and using Play/Pause button on the opening song card.
+  4. If you think the songs should be on your Spotify, just click on the Add button and the song will be added to a playlist called "Spotify Christmas Calendar Playlist" created for you, of course with love.
+  5. Enjoy with your calendar!
+  
+## Setup & run
+If you want to run the project yourself, follow the following steps:
+1. Clone this reposity
+2. Create an application at spotify developer site
+3. Add callback to `localhost:3000` on the spotify application
+4. Insert your spotify client id and redirect uri inside the `auth.js` file as `CLIENT_ID` and `REDIRECT_URI`
+5. Run `npm install`
+6. Run `npm start`
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+WE WISH YOU A MERRY CHRISTMAS! :santa: :christmas_tree: :gift:
